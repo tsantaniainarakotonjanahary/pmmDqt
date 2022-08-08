@@ -27,7 +27,7 @@ function App() {
       idOrgUnit: "P7ko8ftfjUy",
     },
     {
-      username: "Ambaja_MG",
+      username: "Ambanja_MG",
       password: "2021@Covax",
       idOrgUnit: "Sc9CY4s8DWu",
     },
