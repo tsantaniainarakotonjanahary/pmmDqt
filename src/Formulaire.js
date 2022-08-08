@@ -89,9 +89,8 @@ function Formulaire() {
                 <option value="LAST_YEAR">LAST_YEAR</option>
               </Form.Select>
             </Form.Group>
-
             <Button variant="dark" onClick={handleClick}>
-              Submit
+              Telecharger en fichier Excel
             </Button>
           </Form>
         </Col>
