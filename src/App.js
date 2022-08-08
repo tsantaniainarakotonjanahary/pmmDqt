@@ -1,35 +1,69 @@
 import React from "react";
-
-import { useExcelDownloder } from "react-xls";
+import * as XLSX from "xlsx";
 
 function App() {
-  const { ExcelDownloder, Type } = useExcelDownloder();
+  const exportXLSX = (data, sheetName, filename) => {
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    XLSX.writeFile(wb, filename + ".xlsx");
+  };
 
-  // We will make a Workbook contains 2 Worksheets
-  const data = {
-    // Worksheet named animals
-    animals: [
-      { name: "cat", category: "animal" },
-      { name: "dog", category: "animal" },
-      { name: "pig", category: "animal" },
-    ],
-    // Worksheet named pokemons
-    pokemons: [
-      { name: "pikachu", category: "pokemon" },
-      { name: "Arbok", category: "pokemon" },
-      { name: "Eevee", category: "pokemon" },
-    ],
+  const getData = async (
+    domain,
+    username,
+    password,
+    periode,
+    idOrgUnit,
+    sortie,
+    outputType,
+    sort
+  ) => {
+    var data = {
+      username: username,
+      password: password,
+      periode: periode,
+      idOrgUnit: idOrgUnit,
+      sortie: sortie,
+      outputType: outputType,
+      sort: sort,
+    };
+
+    var url = new URL(domain);
+    for (let k in data) {
+      url.searchParams.append(k, data[k]);
+    }
+    const response = await fetch(url, {
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+    });
+    return response.json();
+  };
+
+  const handleClick = () => {
+    getData(
+      "https://gentle-inlet-74830.herokuapp.com/doublon-enrollement",
+      "Nosybe",
+      "2021@Covax",
+      "LAST_12_MONTHS",
+      "A8UMJuP8iI3",
+      "enrollments",
+      "ENROLLMENT",
+      "enrollmentDate"
+    ).then((data) => {
+      console.log(data.data);
+      exportXLSX(data.data, "Doublon-enrollement", "dataQT");
+    });
   };
 
   return (
     <div>
-      <ExcelDownloder
-        data={data}
-        filename={"book"}
-        type={Type.Button} // or type={'button'}
-      >
-        Download
-      </ExcelDownloder>
+      <button onClick={handleClick}>Go</button>
     </div>
   );
 }
