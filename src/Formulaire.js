@@ -15,12 +15,13 @@ function Formulaire() {
   const [sortie, setSortie] = useState("enrollment");
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
-  const [data, setData] = useState();
+  const [data, setData] = useState({ headers: { length: 0 } });
   const [loading, setLoading] = useState(false);
+
   const handleClick = () => {
     var sortieFr = "enrollement";
     if (sortie === "event") {
-      var sortieFr = "evenement";
+      sortieFr = "evenement";
     }
     setLoading(true);
     getData(
@@ -34,6 +35,7 @@ function Formulaire() {
       sortie + "Date"
     ).then((data) => {
       setData(data);
+      console.log(data);
       setLoading(false);
       exportXLSX(data.data, erreur + "-" + sortieFr, "dataQT");
     });
@@ -96,7 +98,7 @@ function Formulaire() {
         </Col>
         <Col md={3}></Col>
       </Row>
-      <Row>{loading ? <LoadingSpinner /> : console.log(data)}</Row>
+      <Row>{loading && <LoadingSpinner />}</Row>
     </Container>
   );
 }
@@ -105,7 +107,7 @@ const exportXLSX = (data, sheetName, filename) => {
   var wb = XLSX.utils.book_new();
   var ws = XLSX.utils.aoa_to_sheet(data);
   XLSX.utils.book_append_sheet(wb, ws, sheetName);
-  XLSX.writeFile(wb, filename + ".xlsx");
+  XLSX.writeFile(wb, sheetName + new Date().toISOString() + ".xlsx");
 };
 
 const getData = async (
