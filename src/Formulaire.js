@@ -9,6 +9,18 @@ import Form from "react-bootstrap/Form";
 import * as XLSX from "xlsx";
 import "./spinner.css";
 import LoadingSpinner from "./LoadingSpinner";
+import { Footer } from "./Footer";
+import Table from "react-bootstrap/Table";
+import { CDBTable, CDBTableHeader, CDBTableBody, CDBContainer } from "cdbreact";
+import {
+  CDBSidebar,
+  CDBSidebarHeader,
+  CDBSidebarMenuItem,
+  CDBSidebarContent,
+  CDBSidebarMenu,
+  CDBSidebarSubMenu,
+  CDBSidebarFooter,
+} from "cdbreact";
 
 function Formulaire() {
   const location = useLocation();
@@ -23,6 +35,7 @@ function Formulaire() {
     if (sortie === "event") {
       sortieFr = "evenement";
     }
+    setData({ headers: { length: 0 } });
     setLoading(true);
     getData(
       "https://gentle-inlet-74830.herokuapp.com/" + erreur + "-" + sortieFr,
@@ -35,28 +48,66 @@ function Formulaire() {
       sortie + "Date"
     ).then((data) => {
       setData(data);
-      console.log(data);
       setLoading(false);
-      exportXLSX(data.data, erreur + "-" + sortieFr, data.headers);
     });
   };
+
+  const handleDownload = () => {
+    var sortieFr = "enrollement";
+    if (sortie === "event") {
+      sortieFr = "evenement";
+    }
+    setLoading(true);
+    exportXLSX(data.data, erreur + "-" + sortieFr, data.headers);
+    setLoading(false);
+  };
+
   return (
-    <Container>
+    <div>
       <Row>
         <Col md={12}>
           <MyNavbar />
         </Col>
       </Row>
       <Row>
-        <Col md={3}></Col>
-        <Col md={6}>
+        <Col md={3}>
+          <CDBSidebar>
+            <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
+              Menu
+            </CDBSidebarHeader>
+            <CDBSidebarContent>
+              <CDBSidebarMenu>
+                <CDBSidebarMenuItem icon="exclamation-circle">
+                  Analyse d'erreur
+                </CDBSidebarMenuItem>
+
+                <CDBSidebarMenuItem icon="sign-out-alt" iconType="solid">
+                  Deconnecter
+                </CDBSidebarMenuItem>
+              </CDBSidebarMenu>
+            </CDBSidebarContent>
+
+            <CDBSidebarFooter style={{ textAlign: "center" }}>
+              <div
+                className="sidebar-btn-wrapper"
+                style={{ padding: "20px 5px" }}
+              >
+                Sidebar Footer
+              </div>
+            </CDBSidebarFooter>
+          </CDBSidebar>
+        </Col>
+        <Col md={2} className="me-5">
           <Form style={{ marginTop: "50px" }}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="disabledSelect">Type de sortie</Form.Label>
               <Form.Select
                 id="disabledSelect"
                 value={sortie}
-                onChange={(e) => setSortie(e.target.value)}
+                onChange={(e) => {
+                  setSortie(e.target.value);
+                  setData({ headers: { length: 0 } });
+                }}
               >
                 <option value="enrollment">Enrollement</option>
                 <option value="event">Evenement</option>
@@ -69,7 +120,10 @@ function Formulaire() {
               <Form.Select
                 id="disabledSelect"
                 value={erreur}
-                onChange={(e) => setErreur(e.target.value)}
+                onChange={(e) => {
+                  setErreur(e.target.value);
+                  setData({ headers: { length: 0 } });
+                }}
               >
                 <option value="doublon">Doublon</option>
                 <option value="NA">Non-Appliquable</option>
@@ -80,7 +134,10 @@ function Formulaire() {
               <Form.Select
                 id="disabledSelect"
                 value={periode}
-                onChange={(e) => setPeriode(e.target.value)}
+                onChange={(e) => {
+                  setPeriode(e.target.value);
+                  setData({ headers: { length: 0 } });
+                }}
               >
                 <option value="LAST_12_MONTHS">12 dernier mois</option>
                 <option value="THIS_YEAR;LAST_5_YEARS">2021-2022</option>
@@ -92,15 +149,62 @@ function Formulaire() {
                 <option value="LAST_YEAR">Année derniere</option>
               </Form.Select>
             </Form.Group>
+
             <Button variant="dark" onClick={handleClick}>
-              Telecharger en fichier Excel
+              Consulter
             </Button>
           </Form>
+          <Row>{loading && <LoadingSpinner />}</Row>
         </Col>
-        <Col md={3}></Col>
+        <Col md={6}>
+          <Row
+            style={{ textAlign: "center", alignItems: "center" }}
+            className="my-3"
+          >
+            <Col md="4"></Col>
+
+            <Col md="3">
+              <Button
+                icon="arrow-circle-down"
+                iconType="solid"
+                onClick={handleDownload}
+                className="btn btn-dark"
+              >
+                Telecharger
+              </Button>
+            </Col>
+            <Col md="4"></Col>
+          </Row>
+          <Row>
+            {data.headers.length !== 0 && (
+              <CDBContainer style={{ height: "700px", "overflow-y": "scroll" }}>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      {data.headers.map((item) => {
+                        return <th>{item}</th>;
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody responsive>
+                    {data.data.map((item) => {
+                      return (
+                        <tr>
+                          {item.map((value) => {
+                            return <td>{value}</td>;
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </CDBContainer>
+            )}
+          </Row>
+        </Col>
       </Row>
-      <Row>{loading && <LoadingSpinner />}</Row>
-    </Container>
+      <Footer />
+    </div>
   );
 }
 
