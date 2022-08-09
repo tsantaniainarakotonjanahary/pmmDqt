@@ -37,7 +37,7 @@ function Formulaire() {
       setData(data);
       console.log(data);
       setLoading(false);
-      exportXLSX(data.data, erreur + "-" + sortieFr, "dataQT");
+      exportXLSX(data.data, erreur + "-" + sortieFr, data.headers);
     });
   };
   return (
@@ -103,9 +103,10 @@ function Formulaire() {
   );
 }
 
-const exportXLSX = (data, sheetName, filename) => {
+const exportXLSX = (data, sheetName, headers) => {
   var wb = XLSX.utils.book_new();
   var ws = XLSX.utils.aoa_to_sheet(data);
+  XLSX.utils.sheet_add_aoa(ws, [headers]);
   XLSX.utils.book_append_sheet(wb, ws, sheetName);
   XLSX.writeFile(wb, sheetName + "_" + new Date().toISOString() + ".xlsx");
 };
