@@ -25,6 +25,7 @@ import {
 function Formulaire() {
   const location = useLocation();
   const [sortie, setSortie] = useState("enrollment");
+  const [idOrgUnit, setIdOrgUnit] = useState("P7ko8ftfjUy");
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
   const [data, setData] = useState({ headers: { length: 0 } });
@@ -39,10 +40,10 @@ function Formulaire() {
     setLoading(true);
     getData(
       "https://gentle-inlet-74830.herokuapp.com/" + erreur + "-" + sortieFr,
-      location.state.username,
-      location.state.password,
+      "Nosybe",
+      "2021@Covax",
       periode,
-      location.state.idOrgUnit,
+      idOrgUnit,
       sortie + "s",
       sortie.toUpperCase(),
       sortie + "Date"
@@ -100,6 +101,21 @@ function Formulaire() {
         <Col md={2} className="me-5">
           <Form style={{ marginTop: "50px" }}>
             <Form.Group className="mb-3">
+              <Form.Label htmlFor="disabledSelect">District</Form.Label>
+              <Form.Select
+                id="disabledSelect"
+                value={idOrgUnit}
+                onChange={(e) => {
+                  setIdOrgUnit(e.target.value);
+                  setData({ headers: { length: 0 } });
+                }}
+              >
+                <option value="Sc9CY4s8DWu">Ambanja</option>
+                <option value="P7ko8ftfjUy">Nosy Be</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
               <Form.Label htmlFor="disabledSelect">Type de sortie</Form.Label>
               <Form.Select
                 id="disabledSelect"
@@ -142,7 +158,7 @@ function Formulaire() {
                 <option value="LAST_12_MONTHS">12 dernier mois</option>
                 <option value="THIS_YEAR;LAST_5_YEARS">2021-2022</option>
                 <option value="THIS_YEAR;LAST_5_YEARS">
-                  cette année et les 5 dernieres annees
+                  5 dernieres annees
                 </option>
                 <option value="THIS_YEAR">cette année</option>
                 <option value="LAST_5_YEARS">5 dernieres annees</option>

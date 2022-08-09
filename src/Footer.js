@@ -7,7 +7,7 @@ export const Footer = () => {
       <CDBBox
         display="flex"
         flex="column"
-        className="mx-auto py-5"
+        className="mx-auto py-2"
         style={{ width: "90%" }}
       >
         <small className="text-center mt-5">

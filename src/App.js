@@ -31,6 +31,11 @@ function App() {
       password: "2021@Covax",
       idOrgUnit: "Sc9CY4s8DWu",
     },
+    {
+      username: "Rectifier",
+      password: "2021@Covax",
+      idOrgUnit: "Sc9CY4s8DWu",
+    },
   ];
 
   const errors = {
