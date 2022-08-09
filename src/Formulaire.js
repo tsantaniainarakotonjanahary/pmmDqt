@@ -83,6 +83,7 @@ function Formulaire() {
                 onChange={(e) => setPeriode(e.target.value)}
               >
                 <option value="LAST_12_MONTHS">12 dernier mois</option>
+                <option value="THIS_YEAR;LAST_5_YEARS">2021-2022</option>
                 <option value="THIS_YEAR;LAST_5_YEARS">
                   cette année et les 5 dernieres annees
                 </option>
