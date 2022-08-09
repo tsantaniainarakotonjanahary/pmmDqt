@@ -58,8 +58,8 @@ function Formulaire() {
                 value={sortie}
                 onChange={(e) => setSortie(e.target.value)}
               >
-                <option value="enrollment">enrollment</option>
-                <option value="event">event</option>
+                <option value="enrollment">Enrollement</option>
+                <option value="event">Evenement</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -71,8 +71,8 @@ function Formulaire() {
                 value={erreur}
                 onChange={(e) => setErreur(e.target.value)}
               >
-                <option value="doublon">doublon</option>
-                <option value="NA">NA</option>
+                <option value="doublon">Doublon</option>
+                <option value="NA">Non-Appliquable</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -82,13 +82,13 @@ function Formulaire() {
                 value={periode}
                 onChange={(e) => setPeriode(e.target.value)}
               >
-                <option value="LAST_12_MONTHS">LAST_12_MONTHS</option>
+                <option value="LAST_12_MONTHS">12 dernier mois</option>
                 <option value="THIS_YEAR;LAST_5_YEARS">
-                  THIS_YEAR;LAST_5_YEARS
+                  cette année et les 5 dernieres annees
                 </option>
-                <option value="THIS_YEAR">THIS_YEAR</option>
-                <option value="LAST_5_YEARS">LAST_5_YEARS</option>
-                <option value="LAST_YEAR">LAST_YEAR</option>
+                <option value="THIS_YEAR">cette année</option>
+                <option value="LAST_5_YEARS">5 dernieres annees</option>
+                <option value="LAST_YEAR">Année derniere</option>
               </Form.Select>
             </Form.Group>
             <Button variant="dark" onClick={handleClick}>
@@ -107,7 +107,7 @@ const exportXLSX = (data, sheetName, filename) => {
   var wb = XLSX.utils.book_new();
   var ws = XLSX.utils.aoa_to_sheet(data);
   XLSX.utils.book_append_sheet(wb, ws, sheetName);
-  XLSX.writeFile(wb, sheetName + new Date().toISOString() + ".xlsx");
+  XLSX.writeFile(wb, sheetName + "_" + new Date().toISOString() + ".xlsx");
 };
 
 const getData = async (
