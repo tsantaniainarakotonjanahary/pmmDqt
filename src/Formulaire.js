@@ -35,6 +35,7 @@ function Formulaire() {
       sortie + "Date"
     ).then((data) => {
       setData(data);
+      console.log(data);
       setLoading(false);
       exportXLSX(data.data, erreur + "-" + sortieFr, data.headers);
     });
