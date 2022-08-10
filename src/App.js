@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
+import { Footer } from "./Footer";
 import {
   BrowserRouter,
   Routes,
@@ -90,22 +91,21 @@ function App() {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col md={12}>
-            <MyNavbar />
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            {isSubmitted
-              ? navigate("/Formulaire", {
-                  state: dataUser,
-                })
-              : renderForm}
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col md={12}>
+          <MyNavbar />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12}>
+          {isSubmitted
+            ? navigate("/Formulaire", {
+                state: dataUser,
+              })
+            : renderForm}
+        </Col>
+      </Row>
+      <Footer />
     </>
   );
 }

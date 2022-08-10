@@ -1,19 +1,24 @@
 import React from "react";
 import { CDBFooter, CDBFooterLink, CDBBox, CDBBtn, CDBIcon } from "cdbreact";
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBIcon,
+  MDBInput,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+} from "mdb-react-ui-kit";
 
 export const Footer = () => {
   return (
-    <CDBFooter className="shadow">
-      <CDBBox
-        display="flex"
-        flex="column"
-        className="mx-auto py-2"
-        style={{ width: "90%" }}
+    <MDBFooter className="text-center" color="white" bgColor="dark">
+      <div
+        className="text-center p-3"
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
-        <small className="text-center mt-5">
-          &copy; PMM Developper, 2022. All rights reserved.
-        </small>
-      </CDBBox>
-    </CDBFooter>
+        <p className="text-white"> © 2022 Copyright : PMM Developper</p>
+      </div>
+    </MDBFooter>
   );
 };

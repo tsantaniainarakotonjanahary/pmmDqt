@@ -11,39 +11,40 @@ import "./spinner.css";
 import LoadingSpinner from "./LoadingSpinner";
 import { Footer } from "./Footer";
 import Table from "react-bootstrap/Table";
-import { CDBTable, CDBTableHeader, CDBTableBody, CDBContainer } from "cdbreact";
+import Select from "react-select";
+import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import {
   CDBSidebar,
   CDBSidebarHeader,
   CDBSidebarMenuItem,
   CDBSidebarContent,
   CDBSidebarMenu,
-  CDBSidebarSubMenu,
   CDBSidebarFooter,
 } from "cdbreact";
 
 function Formulaire() {
-  const location = useLocation();
   const [sortie, setSortie] = useState("enrollment");
-  const [idOrgUnit, setIdOrgUnit] = useState("P7ko8ftfjUy");
+  const [orgUnit, setOrgUnit] = useState({
+    value: "SLCujLM3Qf5",
+    label: "Ambalavao",
+  });
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
   const [data, setData] = useState({ headers: { length: 0 } });
   const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
-    var sortieFr = "enrollement";
-    if (sortie === "event") {
-      sortieFr = "evenement";
-    }
     setData({ headers: { length: 0 } });
     setLoading(true);
+    const url =
+      "https://gentle-inlet-74830.herokuapp.com/" + erreur + "-" + sortie;
     getData(
-      "https://gentle-inlet-74830.herokuapp.com/" + erreur + "-" + sortieFr,
+      url,
       "Nosybe",
       "2021@Covax",
       periode,
-      idOrgUnit,
+      orgUnit.value,
       sortie + "s",
       sortie.toUpperCase(),
       sortie + "Date"
@@ -70,8 +71,8 @@ function Formulaire() {
           <MyNavbar />
         </Col>
       </Row>
-      <Row>
-        <Col md={3}>
+      <Row style={{ height: "850px" }}>
+        <Col md={2} className="me">
           <CDBSidebar>
             <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
               Menu
@@ -92,27 +93,21 @@ function Formulaire() {
               <div
                 className="sidebar-btn-wrapper"
                 style={{ padding: "20px 5px" }}
-              >
-                Sidebar Footer
-              </div>
+              ></div>
             </CDBSidebarFooter>
           </CDBSidebar>
         </Col>
-        <Col md={2} className="me-5">
-          <Form style={{ marginTop: "50px" }}>
+        <Col md={3} className="me-5">
+          <Form style={{ marginTop: "100px", marginBottom: "50px" }}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="disabledSelect">District</Form.Label>
-              <Form.Select
-                id="disabledSelect"
-                value={idOrgUnit}
-                onChange={(e) => {
-                  setIdOrgUnit(e.target.value);
-                  setData({ headers: { length: 0 } });
+              <Select
+                options={options}
+                value={orgUnit}
+                onChange={(selectedOption) => {
+                  setOrgUnit(selectedOption);
                 }}
-              >
-                <option value="Sc9CY4s8DWu">Ambanja</option>
-                <option value="P7ko8ftfjUy">Nosy Be</option>
-              </Form.Select>
+              />
             </Form.Group>
 
             <Form.Group className="mb-3">
@@ -122,7 +117,6 @@ function Formulaire() {
                 value={sortie}
                 onChange={(e) => {
                   setSortie(e.target.value);
-                  setData({ headers: { length: 0 } });
                 }}
               >
                 <option value="enrollment">Enrollement</option>
@@ -138,7 +132,6 @@ function Formulaire() {
                 value={erreur}
                 onChange={(e) => {
                   setErreur(e.target.value);
-                  setData({ headers: { length: 0 } });
                 }}
               >
                 <option value="doublon">Doublon</option>
@@ -152,7 +145,6 @@ function Formulaire() {
                 value={periode}
                 onChange={(e) => {
                   setPeriode(e.target.value);
-                  setData({ headers: { length: 0 } });
                 }}
               >
                 <option value="LAST_12_MONTHS">12 dernier mois</option>
@@ -170,7 +162,21 @@ function Formulaire() {
               Consulter
             </Button>
           </Form>
-          <Row>{loading && <LoadingSpinner />}</Row>
+          <Row>
+            <Col md={2}></Col>
+            <Col md={8}>
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                data.headers.length !== 0 && (
+                  <h1>
+                    Resultats : <span>{data.data.length}</span>
+                  </h1>
+                )
+              )}
+            </Col>
+            <Col md={2}></Col>
+          </Row>
         </Col>
         <Col md={6}>
           <Row
@@ -180,20 +186,21 @@ function Formulaire() {
             <Col md="4"></Col>
 
             <Col md="3">
-              <Button
-                icon="arrow-circle-down"
-                iconType="solid"
-                onClick={handleDownload}
-                className="btn btn-dark"
-              >
-                Telecharger
-              </Button>
+              {data.headers.length !== 0 && (
+                <Button
+                  icon="arrow-circle-down"
+                  onClick={handleDownload}
+                  className="btn btn-dark"
+                >
+                  Telecharger
+                </Button>
+              )}
             </Col>
             <Col md="4"></Col>
           </Row>
           <Row>
-            {data.headers.length !== 0 && (
-              <CDBContainer style={{ height: "700px", "overflow-y": "scroll" }}>
+            {data.headers.length !== 0 ? (
+              <Container style={{ height: "700px", "overflow-y": "scroll" }}>
                 <Table striped bordered hover>
                   <thead>
                     <tr>
@@ -214,12 +221,31 @@ function Formulaire() {
                     })}
                   </tbody>
                 </Table>
-              </CDBContainer>
+              </Container>
+            ) : (
+              loading && (
+                <>
+                  <Box sx={{ width: 1000 }}>
+                    <Skeleton sx={{ height: 50 }} />
+                    <Skeleton animation="wave" sx={{ height: 50 }} />
+                    <Skeleton animation={false} sx={{ height: 50 }} />
+                    <Skeleton sx={{ height: 50 }} />
+                    <Skeleton animation="wave" sx={{ height: 50 }} />
+                    <Skeleton animation={false} sx={{ height: 50 }} />
+                    <Skeleton sx={{ height: 50 }} />
+                    <Skeleton animation="wave" sx={{ height: 50 }} />
+                    <Skeleton animation={false} sx={{ height: 50 }} />
+                    <Skeleton sx={{ height: 50 }} />
+                    <Skeleton animation="wave" sx={{ height: 50 }} />
+                    <Skeleton animation={false} sx={{ height: 50 }} />
+                  </Box>
+                </>
+              )
             )}
           </Row>
         </Col>
       </Row>
-      <Footer />
+      <Footer bg="dark" />
     </div>
   );
 }
@@ -268,5 +294,464 @@ const getData = async (
   });
   return response.json();
 };
+
+const options = [
+  {
+    value: "SLCujLM3Qf5",
+    label: "Ambalavao",
+  },
+  {
+    value: "Sc9CY4s8DWu",
+    label: "Ambanja",
+  },
+  {
+    value: "a0dxbfYOh2E",
+    label: "Ambatoboeny",
+  },
+  {
+    value: "obsFQeNciQM",
+    label: "Ambatofinandrahana",
+  },
+  {
+    value: "ZXSURViEsc8",
+    label: "Ambatolampy",
+  },
+  {
+    value: "MSvQtBZCz2k",
+    label: "Ambatomainty",
+  },
+  {
+    value: "lsCrRfgm2hS",
+    label: "Ambatondrazaka",
+  },
+  {
+    value: "AdjFsUNV4Xg",
+    label: "Ambilobe",
+  },
+  {
+    value: "LmT9KkUIixj",
+    label: "Amboasary Sud",
+  },
+  {
+    value: "ggEW9io9OxW",
+    label: "Ambohidratrimo",
+  },
+  {
+    value: "T134N4T4e5s",
+    label: "Ambohimahasoa",
+  },
+  {
+    value: "QYXSay8tVtX",
+    label: "Ambositra",
+  },
+  {
+    value: "AS8mYWl1Ael",
+    label: "Ambovombe Androy",
+  },
+  {
+    value: "evhrYdQYOhK",
+    label: "Ampanihy Ouest",
+  },
+  {
+    value: "IsROud9LtOF",
+    label: "Amparafaravola",
+  },
+  {
+    value: "iMfNV2a3DF6",
+    label: "Analalava",
+  },
+  {
+    value: "R4b2zHKwMWZ",
+    label: "Andapa",
+  },
+  {
+    value: "RGATf8waYNn",
+    label: "Andilamena",
+  },
+  {
+    value: "dsDbxSkO1ST",
+    label: "Andramasina",
+  },
+  {
+    value: "O4fHBBYcppz",
+    label: "Anjozorobe",
+  },
+  {
+    value: "UfioceyRxa9",
+    label: "Ankazoabo Atsimo",
+  },
+  {
+    value: "ugusypQK3oV",
+    label: "Ankazobe",
+  },
+  {
+    value: "JChr4ml1sQq",
+    label: "Anosibe An'ala",
+  },
+  {
+    value: "GfT85pagjDs",
+    label: "Antalaha",
+  },
+  {
+    value: "IzwpDjPR8jC",
+    label: "Antanambao Manampontsy",
+  },
+  {
+    value: "TVIEjEecwXO",
+    label: "Antananarivo Atsimondrano",
+  },
+  {
+    value: "o2UdRXl7kjG",
+    label: "Antananarivo Avaradrano",
+  },
+  {
+    value: "FAuW9yTuH1C",
+    label: "Antananarivo Renivohitra",
+  },
+  {
+    value: "i9cs7xTUmQa",
+    label: "Antanifotsy",
+  },
+  {
+    value: "qsoWFqtdF9j",
+    label: "Antsalova",
+  },
+  {
+    value: "jexxZljmEU6",
+    label: "Antsirabe I",
+  },
+  {
+    value: "WxDgNSFrAzU",
+    label: "Antsirabe II",
+  },
+  {
+    value: "StRGYBbsLRy",
+    label: "Antsiranana I",
+  },
+  {
+    value: "s3HejcPkUeJ",
+    label: "Antsiranana II",
+  },
+  {
+    value: "dMfFYzKMRmg",
+    label: "Antsohihy",
+  },
+  {
+    value: "Ur9zMVj3DdJ",
+    label: "Arivonimamo",
+  },
+  {
+    value: "l6uPphUTDyo",
+    label: "Bealanana",
+  },
+  {
+    value: "mIvN6dmW7eP",
+    label: "Befandriana Avaratra",
+  },
+  {
+    value: "VWqIMzSkNkh",
+    label: "Befotaka",
+  },
+  {
+    value: "rYaR81ZVhmJ",
+    label: "Bekily",
+  },
+  {
+    value: "QSzkjcwpp8g",
+    label: "Belo Sur Tsiribihina",
+  },
+  {
+    value: "w5xK0GbJ02o",
+    label: "Beloha Androy",
+  },
+  {
+    value: "uXvrYne0BTU",
+    label: "Benenitra",
+  },
+  {
+    value: "wJeSZ3qcPrF",
+    label: "Beroroha",
+  },
+  {
+    value: "rCmTq0Aaj9Z",
+    label: "Besalampy",
+  },
+  {
+    value: "yR491ce4ykk",
+    label: "Betafo",
+  },
+  {
+    value: "pQianXyfoBK",
+    label: "Betioky Atsimo",
+  },
+  {
+    value: "FKedfhqbnhh",
+    label: "Betroka",
+  },
+  {
+    value: "W1wJlEvkkQ9",
+    label: "Boriziny (Port Berge)",
+  },
+  {
+    value: "FcdNA0dnLPs",
+    label: "Fandriana",
+  },
+  {
+    value: "q1UVmqTAP0Q",
+    label: "Farafangana",
+  },
+  {
+    value: "ELJybAM1Qww",
+    label: "Faratsiho",
+  },
+  {
+    value: "m0q2KapeNtR",
+    label: "Fenoarivo Atsinanana",
+  },
+  {
+    value: "IzOuitPxdCW",
+    label: "Fenoarivobe",
+  },
+  {
+    value: "kcOJ0lo0BWi",
+    label: "Fianarantsoa I",
+  },
+  {
+    value: "qmBVgU1eL4R",
+    label: "Iakora",
+  },
+  {
+    value: "VtP4BdCeXIo",
+    label: "Ifanadiana",
+  },
+  {
+    value: "mweNf27gPF9",
+    label: "Ihosy",
+  },
+  {
+    value: "Y3c0TJ0yar4",
+    label: "Ikalamavony",
+  },
+  {
+    value: "NhHHkQTICLC",
+    label: "Ikongo (Fort_Carnot)",
+  },
+  {
+    value: "X3Uq9Y4qqyd",
+    label: "Isandra",
+  },
+  {
+    value: "b6KVcdclMY1",
+    label: "Ivohibe",
+  },
+  {
+    value: "jcFrOWmXoXI",
+    label: "Kandreho",
+  },
+  {
+    value: "QIBT6jU5eIi",
+    label: "Lalangina",
+  },
+  {
+    value: "SrAluezWP64",
+    label: "Maevatanana",
+  },
+  {
+    value: "AH15fnbv1S4",
+    label: "Mahabo",
+  },
+  {
+    value: "GvoWc7X6Sbp",
+    label: "Mahajanga I",
+  },
+  {
+    value: "cJHysjcZBUt",
+    label: "Mahajanga II",
+  },
+  {
+    value: "JLet7EE9HeG",
+    label: "Mahanoro",
+  },
+  {
+    value: "xIkVBGKnqcc",
+    label: "Maintirano",
+  },
+  {
+    value: "GTmHmMeVzaw",
+    label: "Mampikony",
+  },
+  {
+    value: "fm9l2rMlGIV",
+    label: "Manakara Atsimo",
+  },
+  {
+    value: "xPYchJTTSA1",
+    label: "Mananara Avaratra",
+  },
+  {
+    value: "Qv7lOyPCuJ1",
+    label: "Manandriana",
+  },
+  {
+    value: "hBOXdumAvNc",
+    label: "Mananjary",
+  },
+  {
+    value: "JgNqlQqv7Ow",
+    label: "Mandoto",
+  },
+  {
+    value: "NWDDUN43rIT",
+    label: "Mandritsara",
+  },
+  {
+    value: "aFVBzL062Oa",
+    label: "Manja",
+  },
+  {
+    value: "vHRv6NgA70x",
+    label: "Manjakandriana",
+  },
+  {
+    value: "qwzcYsSzL7k",
+    label: "Maroantsetra",
+  },
+  {
+    value: "xgvRu8zZAZK",
+    label: "Marolambo",
+  },
+  {
+    value: "ffiVmdBUwzI",
+    label: "Marovoay",
+  },
+  {
+    value: "WdUkOAkKNxt",
+    label: "Miandrivazo",
+  },
+  {
+    value: "fVILcBfPtmG",
+    label: "Miarinarivo",
+  },
+  {
+    value: "SHpae2JNUz8",
+    label: "Midongy du Sud",
+  },
+  {
+    value: "y5O9MdBC5du",
+    label: "Mitsinjo",
+  },
+  {
+    value: "miFbLxS4bQB",
+    label: "Morafenobe",
+  },
+  {
+    value: "CjWDQW1TaaX",
+    label: "Moramanga",
+  },
+  {
+    value: "O96zKW0a9C2",
+    label: "Morombe",
+  },
+  {
+    value: "X78SUVw5cQ8",
+    label: "Morondava",
+  },
+  {
+    value: "P7ko8ftfjUy",
+    label: "Nosy Be",
+  },
+  {
+    value: "nHBFdVsWCMf",
+    label: "Nosy Boraha (Sainte Marie)",
+  },
+  {
+    value: "xofSjjKe6rZ",
+    label: "Nosy Varika",
+  },
+  {
+    value: "eXRsUrahFbT",
+    label: "Sakaraha",
+  },
+  {
+    value: "cPc7Dgw3YHo",
+    label: "Sambava",
+  },
+  {
+    value: "Cwv7EQtgmSn",
+    label: "Soalala",
+  },
+  {
+    value: "el4l6r6VycB",
+    label: "Soanierana Ivongo",
+  },
+  {
+    value: "UTYZHOyWq6x",
+    label: "Soavinandriana",
+  },
+  {
+    value: "KBe7h4EfJDf",
+    label: "Taolagnaro",
+  },
+  {
+    value: "LzSBYniSIQ2",
+    label: "Toamasina I",
+  },
+  {
+    value: "l4zGnETxk44",
+    label: "Toamasina II",
+  },
+  {
+    value: "ezliibN7aLp",
+    label: "Toliara I",
+  },
+  {
+    value: "X0m0mCPk74k",
+    label: "Toliara II",
+  },
+  {
+    value: "S4iu0HmPwrM",
+    label: "Tsaratanana",
+  },
+  {
+    value: "ikfdG2YVc0I",
+    label: "Tsihombe",
+  },
+  {
+    value: "r1z7rdpJTw5",
+    label: "Tsiroanomandidy",
+  },
+  {
+    value: "fZrx6O2DJOm",
+    label: "Vangaindrano",
+  },
+  {
+    value: "g9fwkcoIrBQ",
+    label: "Vatomandry",
+  },
+  {
+    value: "ss89res2mrR",
+    label: "Vavatenina",
+  },
+  {
+    value: "BU35owjfn8G",
+    label: "Vohibato",
+  },
+  {
+    value: "QJAdwGaADrX",
+    label: "Vohibinany (Brickaville)",
+  },
+  {
+    value: "Jwt8WvzERHG",
+    label: "Vohimarina (Vohémar)",
+  },
+  {
+    value: "NR01IPDeNon",
+    label: "Vohipeno",
+  },
+  {
+    value: "ep6iGEmEoAx",
+    label: "Vondrozo",
+  },
+];
 
 export default Formulaire;
