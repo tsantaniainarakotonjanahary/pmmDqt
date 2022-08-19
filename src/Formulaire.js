@@ -26,8 +26,8 @@ import {
 function Formulaire() {
   const [sortie, setSortie] = useState("enrollment");
   const [region, setRegion] = useState({
-    value: "MskGiUGbWJ8",
-    label: "Alaotra Mangoro",
+    value: "O5FeT4g4GOV",
+    label: "Tous",
   });
 
   const [orgUnit, setOrgUnit] = useState({
@@ -59,6 +59,7 @@ function Formulaire() {
       setData(data);
       setLoading(false);
     });
+    console.log(url);
   };
 
   const handleDownload = () => {
@@ -111,9 +112,9 @@ function Formulaire() {
                 onChange={(selectedOption) => {
                   setRegion(selectedOption);
                   setOrgUnit({
-                    value: region.value,
+                    value: selectedOption.value,
                     label: "Tous",
-                    link: region.value,
+                    link: selectedOption.value,
                   });
                 }}
               />
@@ -460,6 +461,7 @@ const options = [
   {
     value: "IzwpDjPR8jC",
     label: "Antanambao Manampontsy",
+    link: "wR0PL2iap0s",
   },
   {
     value: "TVIEjEecwXO",
@@ -519,6 +521,7 @@ const options = [
   {
     value: "VWqIMzSkNkh",
     label: "Befotaka",
+    link: "HLuIxUgou3Z",
   },
   {
     value: "rYaR81ZVhmJ",
@@ -574,6 +577,7 @@ const options = [
   {
     value: "q1UVmqTAP0Q",
     label: "Farafangana",
+    link: "HLuIxUgou3Z",
   },
   {
     value: "ELJybAM1Qww",
@@ -647,6 +651,7 @@ const options = [
   {
     value: "JLet7EE9HeG",
     label: "Mahanoro",
+    link: "wR0PL2iap0s",
   },
   {
     value: "xIkVBGKnqcc",
@@ -715,6 +720,7 @@ const options = [
   {
     value: "SHpae2JNUz8",
     label: "Midongy du Sud",
+    link: "HLuIxUgou3Z",
   },
   {
     value: "y5O9MdBC5du",
@@ -780,10 +786,12 @@ const options = [
   {
     value: "LzSBYniSIQ2",
     label: "Toamasina I",
+    link: "wR0PL2iap0s",
   },
   {
     value: "l4zGnETxk44",
     label: "Toamasina II",
+    link: "wR0PL2iap0s",
   },
   {
     value: "ezliibN7aLp",
@@ -811,10 +819,12 @@ const options = [
   {
     value: "fZrx6O2DJOm",
     label: "Vangaindrano",
+    link: "HLuIxUgou3Z",
   },
   {
     value: "g9fwkcoIrBQ",
     label: "Vatomandry",
+    link: "wR0PL2iap0s",
   },
   {
     value: "ss89res2mrR",
@@ -828,6 +838,7 @@ const options = [
   {
     value: "QJAdwGaADrX",
     label: "Vohibinany (Brickaville)",
+    link: "wR0PL2iap0s",
   },
   {
     value: "Jwt8WvzERHG",
@@ -840,6 +851,7 @@ const options = [
   {
     value: "ep6iGEmEoAx",
     label: "Vondrozo",
+    link: "HLuIxUgou3Z",
   },
 ];
 
