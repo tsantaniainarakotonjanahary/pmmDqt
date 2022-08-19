@@ -360,6 +360,7 @@ const options = [
   {
     value: "a0dxbfYOh2E",
     label: "Ambatoboeny",
+    link: "A8UMJuP8iI3",
   },
   {
     value: "obsFQeNciQM",
@@ -645,10 +646,12 @@ const options = [
   {
     value: "GvoWc7X6Sbp",
     label: "Mahajanga I",
+    link: "A8UMJuP8iI3",
   },
   {
     value: "cJHysjcZBUt",
     label: "Mahajanga II",
+    link: "A8UMJuP8iI3",
   },
   {
     value: "JLet7EE9HeG",
@@ -710,6 +713,7 @@ const options = [
   {
     value: "ffiVmdBUwzI",
     label: "Marovoay",
+    link: "A8UMJuP8iI3",
   },
   {
     value: "WdUkOAkKNxt",
@@ -727,6 +731,7 @@ const options = [
   {
     value: "y5O9MdBC5du",
     label: "Mitsinjo",
+    link: "A8UMJuP8iI3",
   },
   {
     value: "miFbLxS4bQB",
@@ -770,6 +775,7 @@ const options = [
   {
     value: "Cwv7EQtgmSn",
     label: "Soalala",
+    link: "A8UMJuP8iI3",
   },
   {
     value: "el4l6r6VycB",
