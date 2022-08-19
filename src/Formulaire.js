@@ -352,6 +352,7 @@ const options = [
   {
     value: "SLCujLM3Qf5",
     label: "Ambalavao",
+    link: "kgGIXgdG56r",
   },
   {
     value: "Sc9CY4s8DWu",
@@ -399,6 +400,7 @@ const options = [
   {
     value: "T134N4T4e5s",
     label: "Ambohimahasoa",
+    link: "kgGIXgdG56r",
   },
   {
     value: "QYXSay8tVtX",
@@ -601,6 +603,7 @@ const options = [
   {
     value: "kcOJ0lo0BWi",
     label: "Fianarantsoa I",
+    link: "kgGIXgdG56r",
   },
   {
     value: "qmBVgU1eL4R",
@@ -617,14 +620,17 @@ const options = [
   {
     value: "Y3c0TJ0yar4",
     label: "Ikalamavony",
+    link: "kgGIXgdG56r",
   },
   {
     value: "NhHHkQTICLC",
     label: "Ikongo (Fort_Carnot)",
+    link: "MH5KHIQYZfs",
   },
   {
     value: "X3Uq9Y4qqyd",
     label: "Isandra",
+    link: "kgGIXgdG56r",
   },
   {
     value: "b6KVcdclMY1",
@@ -638,6 +644,7 @@ const options = [
   {
     value: "QIBT6jU5eIi",
     label: "Lalangina",
+    link: "kgGIXgdG56r",
   },
   {
     value: "SrAluezWP64",
@@ -674,6 +681,7 @@ const options = [
   {
     value: "fm9l2rMlGIV",
     label: "Manakara Atsimo",
+    link: "MH5KHIQYZfs",
   },
   {
     value: "xPYchJTTSA1",
@@ -850,6 +858,7 @@ const options = [
   {
     value: "BU35owjfn8G",
     label: "Vohibato",
+    link: "kgGIXgdG56r",
   },
   {
     value: "QJAdwGaADrX",
@@ -863,6 +872,7 @@ const options = [
   {
     value: "NR01IPDeNon",
     label: "Vohipeno",
+    link: "MH5KHIQYZfs",
   },
   {
     value: "ep6iGEmEoAx",
