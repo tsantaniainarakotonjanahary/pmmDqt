@@ -372,10 +372,12 @@ const options = [
   {
     value: "ZXSURViEsc8",
     label: "Ambatolampy",
+    link: "OLNpyBROkUv",
   },
   {
     value: "MSvQtBZCz2k",
     label: "Ambatomainty",
+    link: "wRAhGd81ae1",
   },
   {
     value: "lsCrRfgm2hS",
@@ -425,10 +427,12 @@ const options = [
   {
     value: "iMfNV2a3DF6",
     label: "Analalava",
+    link: "HurBrymbN1S",
   },
   {
     value: "R4b2zHKwMWZ",
     label: "Andapa",
+    link: "UYN92RXF3zu",
   },
   {
     value: "RGATf8waYNn",
@@ -462,6 +466,7 @@ const options = [
   {
     value: "GfT85pagjDs",
     label: "Antalaha",
+    link: "UYN92RXF3zu",
   },
   {
     value: "IzwpDjPR8jC",
@@ -486,18 +491,22 @@ const options = [
   {
     value: "i9cs7xTUmQa",
     label: "Antanifotsy",
+    link: "OLNpyBROkUv",
   },
   {
     value: "qsoWFqtdF9j",
     label: "Antsalova",
+    link: "wRAhGd81ae1",
   },
   {
     value: "jexxZljmEU6",
     label: "Antsirabe I",
+    link: "OLNpyBROkUv",
   },
   {
     value: "WxDgNSFrAzU",
     label: "Antsirabe II",
+    link: "OLNpyBROkUv",
   },
   {
     value: "StRGYBbsLRy",
@@ -512,6 +521,7 @@ const options = [
   {
     value: "dMfFYzKMRmg",
     label: "Antsohihy",
+    link: "HurBrymbN1S",
   },
   {
     value: "Ur9zMVj3DdJ",
@@ -521,10 +531,12 @@ const options = [
   {
     value: "l6uPphUTDyo",
     label: "Bealanana",
+    link: "HurBrymbN1S",
   },
   {
     value: "mIvN6dmW7eP",
     label: "Befandriana Avaratra",
+    link: "HurBrymbN1S",
   },
   {
     value: "VWqIMzSkNkh",
@@ -539,6 +551,7 @@ const options = [
   {
     value: "QSzkjcwpp8g",
     label: "Belo Sur Tsiribihina",
+    link: "YcjoRK39FIy",
   },
   {
     value: "w5xK0GbJ02o",
@@ -558,10 +571,12 @@ const options = [
   {
     value: "rCmTq0Aaj9Z",
     label: "Besalampy",
+    link: "wRAhGd81ae1",
   },
   {
     value: "yR491ce4ykk",
     label: "Betafo",
+    link: "OLNpyBROkUv",
   },
   {
     value: "pQianXyfoBK",
@@ -576,6 +591,7 @@ const options = [
   {
     value: "W1wJlEvkkQ9",
     label: "Boriziny (Port Berge)",
+    link: "HurBrymbN1S",
   },
   {
     value: "FcdNA0dnLPs",
@@ -590,6 +606,7 @@ const options = [
   {
     value: "ELJybAM1Qww",
     label: "Faratsiho",
+    link: "OLNpyBROkUv",
   },
   {
     value: "m0q2KapeNtR",
@@ -614,6 +631,7 @@ const options = [
   {
     value: "VtP4BdCeXIo",
     label: "Ifanadiana",
+    link: "O0yrAFTjghG",
   },
   {
     value: "mweNf27gPF9",
@@ -658,6 +676,7 @@ const options = [
   {
     value: "AH15fnbv1S4",
     label: "Mahabo",
+    link: "YcjoRK39FIy",
   },
   {
     value: "GvoWc7X6Sbp",
@@ -677,10 +696,12 @@ const options = [
   {
     value: "xIkVBGKnqcc",
     label: "Maintirano",
+    link: "wRAhGd81ae1",
   },
   {
     value: "GTmHmMeVzaw",
     label: "Mampikony",
+    link: "HurBrymbN1S",
   },
   {
     value: "fm9l2rMlGIV",
@@ -700,18 +721,22 @@ const options = [
   {
     value: "hBOXdumAvNc",
     label: "Mananjary",
+    link: "O0yrAFTjghG",
   },
   {
     value: "JgNqlQqv7Ow",
     label: "Mandoto",
+    link: "OLNpyBROkUv",
   },
   {
     value: "NWDDUN43rIT",
     label: "Mandritsara",
+    link: "HurBrymbN1S",
   },
   {
     value: "aFVBzL062Oa",
     label: "Manja",
+    link: "YcjoRK39FIy",
   },
   {
     value: "vHRv6NgA70x",
@@ -735,6 +760,7 @@ const options = [
   {
     value: "WdUkOAkKNxt",
     label: "Miandrivazo",
+    link: "YcjoRK39FIy",
   },
   {
     value: "fVILcBfPtmG",
@@ -754,6 +780,7 @@ const options = [
   {
     value: "miFbLxS4bQB",
     label: "Morafenobe",
+    link: "wRAhGd81ae1",
   },
   {
     value: "CjWDQW1TaaX",
@@ -767,6 +794,7 @@ const options = [
   {
     value: "X78SUVw5cQ8",
     label: "Morondava",
+    link: "YcjoRK39FIy",
   },
   {
     value: "P7ko8ftfjUy",
@@ -781,6 +809,7 @@ const options = [
   {
     value: "xofSjjKe6rZ",
     label: "Nosy Varika",
+    link: "O0yrAFTjghG",
   },
   {
     value: "eXRsUrahFbT",
@@ -790,6 +819,7 @@ const options = [
   {
     value: "cPc7Dgw3YHo",
     label: "Sambava",
+    link: "UYN92RXF3zu",
   },
   {
     value: "Cwv7EQtgmSn",
@@ -874,6 +904,7 @@ const options = [
   {
     value: "Jwt8WvzERHG",
     label: "Vohimarina (Vohémar)",
+    link: "UYN92RXF3zu",
   },
   {
     value: "NR01IPDeNon",
