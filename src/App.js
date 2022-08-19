@@ -1,5 +1,4 @@
 import MyNavbar from "./MyNavbar";
-import Home from "./Home";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,6 +6,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import { Footer } from "./Footer";
+import Formulaire from "./Formulaire";
 import {
   BrowserRouter,
   Routes,
@@ -97,13 +97,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col md={12}>
-          {isSubmitted
-            ? navigate("/Formulaire", {
-                state: dataUser,
-              })
-            : renderForm}
-        </Col>
+        <Col md={12}>{isSubmitted ? <Formulaire /> : renderForm}</Col>
       </Row>
       <Footer />
     </>

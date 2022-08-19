@@ -25,10 +25,17 @@ import {
 
 function Formulaire() {
   const [sortie, setSortie] = useState("enrollment");
-  const [orgUnit, setOrgUnit] = useState({
-    value: "SLCujLM3Qf5",
-    label: "Ambalavao",
+  const [region, setRegion] = useState({
+    value: "MskGiUGbWJ8",
+    label: "Alaotra Mangoro",
   });
+
+  const [orgUnit, setOrgUnit] = useState({
+    value: region.value,
+    label: "Tous",
+    link: region.value,
+  });
+
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
   const [data, setData] = useState({ headers: { length: 0 } });
@@ -64,13 +71,10 @@ function Formulaire() {
     setLoading(false);
   };
 
+  const filteredOptions = options.filter((o) => o.link === region.value);
+
   return (
     <div>
-      <Row>
-        <Col md={12}>
-          <MyNavbar />
-        </Col>
-      </Row>
       <Row style={{ height: "850px" }}>
         <Col md={2} className="me">
           <CDBSidebar>
@@ -97,12 +101,28 @@ function Formulaire() {
             </CDBSidebarFooter>
           </CDBSidebar>
         </Col>
-        <Col md={3} className="me-5">
+        <Col md={2} className="me-5">
           <Form style={{ marginTop: "100px", marginBottom: "50px" }}>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="disabledSelect">Region</Form.Label>
+              <Select
+                options={optionsRegion}
+                value={region}
+                onChange={(selectedOption) => {
+                  setRegion(selectedOption);
+                  setOrgUnit({
+                    value: region.value,
+                    label: "Tous",
+                    link: region.value,
+                  });
+                }}
+              />
+            </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label htmlFor="disabledSelect">District</Form.Label>
               <Select
-                options={options}
+                options={filteredOptions}
                 value={orgUnit}
                 onChange={(selectedOption) => {
                   setOrgUnit(selectedOption);
@@ -178,7 +198,7 @@ function Formulaire() {
             <Col md={2}></Col>
           </Row>
         </Col>
-        <Col md={6}>
+        <Col md={7}>
           <Row
             style={{ textAlign: "center", alignItems: "center" }}
             className="my-3"
@@ -200,7 +220,13 @@ function Formulaire() {
           </Row>
           <Row>
             {data.headers.length !== 0 ? (
-              <Container style={{ height: "700px", "overflow-y": "scroll" }}>
+              <div
+                style={{
+                  height: "700px",
+                  width: "1500px",
+                  "overflow-y": "scroll",
+                }}
+              >
                 <Table striped bordered hover>
                   <thead>
                     <tr>
@@ -221,7 +247,7 @@ function Formulaire() {
                     })}
                   </tbody>
                 </Table>
-              </Container>
+              </div>
             ) : (
               loading && (
                 <>
@@ -295,6 +321,32 @@ const getData = async (
   return response.json();
 };
 
+const optionsRegion = [
+  { value: "MskGiUGbWJ8", label: "Alaotra Mangoro" },
+  { value: "kPG7EKqojrg", label: "Amoron'i Mania" },
+  { value: "I9lEj4mALls", label: "Analamanga" },
+  { value: "l3DKJQGIOwr", label: "Analanjirofo" },
+  { value: "M0U5qF1l1ew", label: "Androy" },
+  { value: "PTqLWwjcAox", label: "Anosy" },
+  { value: "EzHpSGmTzSB", label: "Atsimo Andrefana" },
+  { value: "HLuIxUgou3Z", label: "Atsimo Atsinanana" },
+  { value: "wR0PL2iap0s", label: "Atsinanana" },
+  { value: "gHNBsfuG0Cz", label: "Betsiboka" },
+  { value: "A8UMJuP8iI3", label: "Boeny" },
+  { value: "jrFvjsPtJrT", label: "Bongolava" },
+  { value: "zJ9UJ7RhCwV", label: "Diana" },
+  { value: "MH5KHIQYZfs", label: "Fitovinany" },
+  { value: "kgGIXgdG56r", label: "Haute Matsiatra" },
+  { value: "BwCu0NhYViZ", label: "Ihorombe" },
+  { value: "yyl4hZmgoC8", label: "Itasy" },
+  { value: "wRAhGd81ae1", label: "Melaky" },
+  { value: "YcjoRK39FIy", label: "Menabe" },
+  { value: "UYN92RXF3zu", label: "Sava" },
+  { value: "HurBrymbN1S", label: "Sofia" },
+  { value: "OLNpyBROkUv", label: "Vakinankaratra" },
+  { value: "O0yrAFTjghG", label: "Vatovavy" },
+];
+
 const options = [
   {
     value: "SLCujLM3Qf5",
@@ -311,6 +363,7 @@ const options = [
   {
     value: "obsFQeNciQM",
     label: "Ambatofinandrahana",
+    link: "kPG7EKqojrg",
   },
   {
     value: "ZXSURViEsc8",
@@ -323,6 +376,7 @@ const options = [
   {
     value: "lsCrRfgm2hS",
     label: "Ambatondrazaka",
+    link: "MskGiUGbWJ8",
   },
   {
     value: "AdjFsUNV4Xg",
@@ -331,10 +385,12 @@ const options = [
   {
     value: "LmT9KkUIixj",
     label: "Amboasary Sud",
+    link: "PTqLWwjcAox",
   },
   {
     value: "ggEW9io9OxW",
     label: "Ambohidratrimo",
+    link: "I9lEj4mALls",
   },
   {
     value: "T134N4T4e5s",
@@ -343,18 +399,22 @@ const options = [
   {
     value: "QYXSay8tVtX",
     label: "Ambositra",
+    link: "kPG7EKqojrg",
   },
   {
     value: "AS8mYWl1Ael",
     label: "Ambovombe Androy",
+    link: "M0U5qF1l1ew",
   },
   {
     value: "evhrYdQYOhK",
     label: "Ampanihy Ouest",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "IsROud9LtOF",
     label: "Amparafaravola",
+    link: "MskGiUGbWJ8",
   },
   {
     value: "iMfNV2a3DF6",
@@ -367,18 +427,22 @@ const options = [
   {
     value: "RGATf8waYNn",
     label: "Andilamena",
+    link: "MskGiUGbWJ8",
   },
   {
     value: "dsDbxSkO1ST",
     label: "Andramasina",
+    link: "I9lEj4mALls",
   },
   {
     value: "O4fHBBYcppz",
     label: "Anjozorobe",
+    link: "I9lEj4mALls",
   },
   {
     value: "UfioceyRxa9",
     label: "Ankazoabo Atsimo",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "ugusypQK3oV",
@@ -387,6 +451,7 @@ const options = [
   {
     value: "JChr4ml1sQq",
     label: "Anosibe An'ala",
+    link: "MskGiUGbWJ8",
   },
   {
     value: "GfT85pagjDs",
@@ -399,14 +464,17 @@ const options = [
   {
     value: "TVIEjEecwXO",
     label: "Antananarivo Atsimondrano",
+    link: "I9lEj4mALls",
   },
   {
     value: "o2UdRXl7kjG",
     label: "Antananarivo Avaradrano",
+    link: "I9lEj4mALls",
   },
   {
     value: "FAuW9yTuH1C",
     label: "Antananarivo Renivohitra",
+    link: "I9lEj4mALls",
   },
   {
     value: "i9cs7xTUmQa",
@@ -455,6 +523,7 @@ const options = [
   {
     value: "rYaR81ZVhmJ",
     label: "Bekily",
+    link: "M0U5qF1l1ew",
   },
   {
     value: "QSzkjcwpp8g",
@@ -463,14 +532,17 @@ const options = [
   {
     value: "w5xK0GbJ02o",
     label: "Beloha Androy",
+    link: "M0U5qF1l1ew",
   },
   {
     value: "uXvrYne0BTU",
     label: "Benenitra",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "wJeSZ3qcPrF",
     label: "Beroroha",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "rCmTq0Aaj9Z",
@@ -483,10 +555,12 @@ const options = [
   {
     value: "pQianXyfoBK",
     label: "Betioky Atsimo",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "FKedfhqbnhh",
     label: "Betroka",
+    link: "PTqLWwjcAox",
   },
   {
     value: "W1wJlEvkkQ9",
@@ -495,6 +569,7 @@ const options = [
   {
     value: "FcdNA0dnLPs",
     label: "Fandriana",
+    link: "kPG7EKqojrg",
   },
   {
     value: "q1UVmqTAP0Q",
@@ -507,6 +582,7 @@ const options = [
   {
     value: "m0q2KapeNtR",
     label: "Fenoarivo Atsinanana",
+    link: "l3DKJQGIOwr",
   },
   {
     value: "IzOuitPxdCW",
@@ -587,10 +663,12 @@ const options = [
   {
     value: "xPYchJTTSA1",
     label: "Mananara Avaratra",
+    link: "l3DKJQGIOwr",
   },
   {
     value: "Qv7lOyPCuJ1",
     label: "Manandriana",
+    link: "kPG7EKqojrg",
   },
   {
     value: "hBOXdumAvNc",
@@ -611,10 +689,12 @@ const options = [
   {
     value: "vHRv6NgA70x",
     label: "Manjakandriana",
+    link: "I9lEj4mALls",
   },
   {
     value: "qwzcYsSzL7k",
     label: "Maroantsetra",
+    link: "l3DKJQGIOwr",
   },
   {
     value: "xgvRu8zZAZK",
@@ -651,6 +731,7 @@ const options = [
   {
     value: "O96zKW0a9C2",
     label: "Morombe",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "X78SUVw5cQ8",
@@ -663,6 +744,7 @@ const options = [
   {
     value: "nHBFdVsWCMf",
     label: "Nosy Boraha (Sainte Marie)",
+    link: "l3DKJQGIOwr",
   },
   {
     value: "xofSjjKe6rZ",
@@ -671,6 +753,7 @@ const options = [
   {
     value: "eXRsUrahFbT",
     label: "Sakaraha",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "cPc7Dgw3YHo",
@@ -683,6 +766,7 @@ const options = [
   {
     value: "el4l6r6VycB",
     label: "Soanierana Ivongo",
+    link: "l3DKJQGIOwr",
   },
   {
     value: "UTYZHOyWq6x",
@@ -691,6 +775,7 @@ const options = [
   {
     value: "KBe7h4EfJDf",
     label: "Taolagnaro",
+    link: "PTqLWwjcAox",
   },
   {
     value: "LzSBYniSIQ2",
@@ -703,10 +788,12 @@ const options = [
   {
     value: "ezliibN7aLp",
     label: "Toliara I",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "X0m0mCPk74k",
     label: "Toliara II",
+    link: "EzHpSGmTzSB",
   },
   {
     value: "S4iu0HmPwrM",
@@ -715,6 +802,7 @@ const options = [
   {
     value: "ikfdG2YVc0I",
     label: "Tsihombe",
+    link: "M0U5qF1l1ew",
   },
   {
     value: "r1z7rdpJTw5",
@@ -731,6 +819,7 @@ const options = [
   {
     value: "ss89res2mrR",
     label: "Vavatenina",
+    link: "l3DKJQGIOwr",
   },
   {
     value: "BU35owjfn8G",
