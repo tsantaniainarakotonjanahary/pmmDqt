@@ -356,6 +356,7 @@ const options = [
   {
     value: "Sc9CY4s8DWu",
     label: "Ambanja",
+    link: "zJ9UJ7RhCwV",
   },
   {
     value: "a0dxbfYOh2E",
@@ -383,6 +384,7 @@ const options = [
   {
     value: "AdjFsUNV4Xg",
     label: "Ambilobe",
+    link: "zJ9UJ7RhCwV",
   },
   {
     value: "LmT9KkUIixj",
@@ -498,10 +500,12 @@ const options = [
   {
     value: "StRGYBbsLRy",
     label: "Antsiranana I",
+    link: "zJ9UJ7RhCwV",
   },
   {
     value: "s3HejcPkUeJ",
     label: "Antsiranana II",
+    link: "zJ9UJ7RhCwV",
   },
   {
     value: "dMfFYzKMRmg",
@@ -754,6 +758,7 @@ const options = [
   {
     value: "P7ko8ftfjUy",
     label: "Nosy Be",
+    link: "zJ9UJ7RhCwV",
   },
   {
     value: "nHBFdVsWCMf",
