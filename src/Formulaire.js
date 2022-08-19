@@ -627,6 +627,7 @@ const options = [
   {
     value: "jcFrOWmXoXI",
     label: "Kandreho",
+    link: "gHNBsfuG0Cz",
   },
   {
     value: "QIBT6jU5eIi",
@@ -635,6 +636,7 @@ const options = [
   {
     value: "SrAluezWP64",
     label: "Maevatanana",
+    link: "gHNBsfuG0Cz",
   },
   {
     value: "AH15fnbv1S4",
@@ -806,6 +808,7 @@ const options = [
   {
     value: "S4iu0HmPwrM",
     label: "Tsaratanana",
+    link: "gHNBsfuG0Cz",
   },
   {
     value: "ikfdG2YVc0I",
