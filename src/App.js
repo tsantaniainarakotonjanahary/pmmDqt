@@ -1,41 +1,14 @@
-import MyNavbar from "./MyNavbar";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import "./styles.css";
-import { Footer } from "./Footer";
 import Formulaire from "./Formulaire";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
 
 function App() {
-  const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [dataUser, setDataUser] = useState({});
   const database = [
-    {
-      username: "Nosybe",
-      password: "2021@Covax",
-      idOrgUnit: "P7ko8ftfjUy",
-    },
-    {
-      username: "Ambanja_MG",
-      password: "2021@Covax",
-      idOrgUnit: "Sc9CY4s8DWu",
-    },
     {
       username: "Rectifier",
       password: "2021@Covax",
-      idOrgUnit: "Sc9CY4s8DWu",
     },
   ];
 
@@ -53,7 +26,6 @@ function App() {
         setErrorMessages({ name: "pass", message: errors.pass });
       } else {
         setIsSubmitted(true);
-        setDataUser(userData);
       }
     } else {
       setErrorMessages({ name: "uname", message: errors.uname });
@@ -91,15 +63,11 @@ function App() {
 
   return (
     <>
-      <Row>
-        <Col md={12}>
-          <MyNavbar />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12}>{isSubmitted ? <Formulaire /> : renderForm}</Col>
-      </Row>
-      <Footer />
+      <div className="row">
+        <div className="col-md-12">
+          {isSubmitted ? <Formulaire /> : renderForm}
+        </div>
+      </div>
     </>
   );
 }

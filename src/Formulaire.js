@@ -1,27 +1,9 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import MyNavbar from "./MyNavbar";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import * as XLSX from "xlsx";
 import "./spinner.css";
 import LoadingSpinner from "./LoadingSpinner";
-import { Footer } from "./Footer";
-import Table from "react-bootstrap/Table";
 import Select from "react-select";
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
-import {
-  CDBSidebar,
-  CDBSidebarHeader,
-  CDBSidebarMenuItem,
-  CDBSidebarContent,
-  CDBSidebarMenu,
-  CDBSidebarFooter,
-} from "cdbreact";
+import MySkeleton from "./MySkeleton";
 
 function Formulaire() {
   const [sortie, setSortie] = useState("enrollment");
@@ -42,6 +24,7 @@ function Formulaire() {
   const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
+    console.log("clicked");
     setData({ headers: { length: 0 } });
     setLoading(true);
     const url =
@@ -57,6 +40,7 @@ function Formulaire() {
       sortie + "Date"
     ).then((data) => {
       setData(data);
+      console.log(data);
       setLoading(false);
     });
     console.log(url);
@@ -75,37 +59,12 @@ function Formulaire() {
   const filteredOptions = options.filter((o) => o.link === region.value);
 
   return (
-    <div>
-      <Row style={{ height: "850px" }}>
-        <Col md={2} className="me">
-          <CDBSidebar>
-            <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
-              Menu
-            </CDBSidebarHeader>
-            <CDBSidebarContent>
-              <CDBSidebarMenu>
-                <CDBSidebarMenuItem icon="exclamation-circle">
-                  Analyse d'erreur
-                </CDBSidebarMenuItem>
-
-                <CDBSidebarMenuItem icon="sign-out-alt" iconType="solid">
-                  Deconnecter
-                </CDBSidebarMenuItem>
-              </CDBSidebarMenu>
-            </CDBSidebarContent>
-
-            <CDBSidebarFooter style={{ textAlign: "center" }}>
-              <div
-                className="sidebar-btn-wrapper"
-                style={{ padding: "20px 5px" }}
-              ></div>
-            </CDBSidebarFooter>
-          </CDBSidebar>
-        </Col>
-        <Col md={2} className="me-5">
-          <Form style={{ marginTop: "100px", marginBottom: "50px" }}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="disabledSelect">Region</Form.Label>
+    <div className="container-fluid">
+      <div className="row" style={{ height: "800px" }}>
+        <div className="col-md-3  h-100">
+          <div className="row p-5 ">
+            <div className="form-group mb-3">
+              <div className="form-label">Region</div>
               <Select
                 options={optionsRegion}
                 value={region}
@@ -118,10 +77,10 @@ function Formulaire() {
                   });
                 }}
               />
-            </Form.Group>
+            </div>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="disabledSelect">District</Form.Label>
+            <div className="form-group mb-3">
+              <div className="form-label">District</div>
               <Select
                 options={filteredOptions}
                 value={orgUnit}
@@ -129,12 +88,14 @@ function Formulaire() {
                   setOrgUnit(selectedOption);
                 }}
               />
-            </Form.Group>
+            </div>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="disabledSelect">Type de sortie</Form.Label>
-              <Form.Select
-                id="disabledSelect"
+            <div className="form-group mb-3">
+              <div className="form-label" htmlFor="disabledSelect">
+                Type de sortie
+              </div>
+              <select
+                className="form-select"
                 value={sortie}
                 onChange={(e) => {
                   setSortie(e.target.value);
@@ -142,14 +103,15 @@ function Formulaire() {
               >
                 <option value="enrollment">Enrollement</option>
                 <option value="event">Evenement</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="disabledSelect">
+              </select>
+            </div>
+
+            <div className="form-group mb-3">
+              <div className="form-label" htmlFor="disabledSelect">
                 Type d'Erreur a rectifier
-              </Form.Label>
-              <Form.Select
-                id="disabledSelect"
+              </div>
+              <select
+                className="form-select"
                 value={erreur}
                 onChange={(e) => {
                   setErreur(e.target.value);
@@ -157,11 +119,13 @@ function Formulaire() {
               >
                 <option value="doublon">Doublon</option>
                 <option value="NA">Non-Appliquable</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="disabledSelect">Choix de periode</Form.Label>
-              <Form.Select
+              </select>
+            </div>
+
+            <div className="form-group mb-3">
+              <div className="form-label">Choix de periode</div>
+              <select
+                className="form-select"
                 id="disabledSelect"
                 value={periode}
                 onChange={(e) => {
@@ -176,16 +140,15 @@ function Formulaire() {
                 <option value="THIS_YEAR">cette année</option>
                 <option value="LAST_5_YEARS">5 dernieres annees</option>
                 <option value="LAST_YEAR">Année derniere</option>
-              </Form.Select>
-            </Form.Group>
+              </select>
+            </div>
 
-            <Button variant="dark" onClick={handleClick}>
+            <button className="btn btn-dark" onClick={handleClick}>
               Consulter
-            </Button>
-          </Form>
-          <Row>
-            <Col md={2}></Col>
-            <Col md={8}>
+            </button>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
               {loading ? (
                 <LoadingSpinner />
               ) : (
@@ -195,84 +158,60 @@ function Formulaire() {
                   </h1>
                 )
               )}
-            </Col>
-            <Col md={2}></Col>
-          </Row>
-        </Col>
-        <Col md={7}>
-          <Row
-            style={{ textAlign: "center", alignItems: "center" }}
-            className="my-3"
-          >
-            <Col md="4"></Col>
-
-            <Col md="3">
+            </div>
+          </div>
+        </div>
+        <div className="col-md-9 h-100">
+          <div className="row p-4">
+            <div className="col-md-8">
+              <h4>Resultat de recherche :</h4>
+            </div>
+            <div className="col-md-4">
               {data.headers.length !== 0 && (
-                <Button
+                <button
                   icon="arrow-circle-down"
                   onClick={handleDownload}
                   className="btn btn-dark"
                 >
                   Telecharger
-                </Button>
+                </button>
               )}
-            </Col>
-            <Col md="4"></Col>
-          </Row>
-          <Row>
+            </div>
+          </div>
+          <div className="row h-100">
             {data.headers.length !== 0 ? (
-              <div
-                style={{
-                  height: "700px",
-                  width: "1500px",
-                  "overflow-y": "scroll",
-                }}
-              >
-                <Table striped bordered hover>
+              <div className="w-100 p-3 overflow-auto h-75">
+                <table className="table table-dark table-striped">
                   <thead>
                     <tr>
-                      {data.headers.map((item) => {
-                        return <th>{item}</th>;
+                      {data.headers.map((item, index) => {
+                        return <th key={index}>{item}</th>;
                       })}
                     </tr>
                   </thead>
-                  <tbody responsive>
-                    {data.data.map((item) => {
+                  <tbody>
+                    {data.data.map((item, index) => {
                       return (
-                        <tr>
-                          {item.map((value) => {
-                            return <td>{value}</td>;
+                        <tr key={index}>
+                          {item.map((value, indice) => {
+                            return <td key={indice}>{value}</td>;
                           })}
                         </tr>
                       );
                     })}
                   </tbody>
-                </Table>
+                </table>
               </div>
             ) : (
               loading && (
-                <>
-                  <Box sx={{ width: 1000 }}>
-                    <Skeleton sx={{ height: 50 }} />
-                    <Skeleton animation="wave" sx={{ height: 50 }} />
-                    <Skeleton animation={false} sx={{ height: 50 }} />
-                    <Skeleton sx={{ height: 50 }} />
-                    <Skeleton animation="wave" sx={{ height: 50 }} />
-                    <Skeleton animation={false} sx={{ height: 50 }} />
-                    <Skeleton sx={{ height: 50 }} />
-                    <Skeleton animation="wave" sx={{ height: 50 }} />
-                    <Skeleton animation={false} sx={{ height: 50 }} />
-                    <Skeleton sx={{ height: 50 }} />
-                    <Skeleton animation="wave" sx={{ height: 50 }} />
-                    <Skeleton animation={false} sx={{ height: 50 }} />
-                  </Box>
-                </>
+                <div className="w-100 p-3 overflow-auto h-75">
+                  <MySkeleton size={5} />
+                </div>
               )
             )}
-          </Row>
-        </Col>
-      </Row>
-      <Footer bg="dark" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
