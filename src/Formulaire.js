@@ -22,6 +22,10 @@ function Formulaire() {
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
   const [data, setData] = useState({ headers: { length: 0 } });
   const [loading, setLoading] = useState(false);
+  const [dr, setDr] = useState("");
+  const [nr, setNr] = useState("");
+  const [dv, setDv] = useState("");
+  const [nv, setNv] = useState("");
 
   const handleClick = () => {
     console.log("clicked");
@@ -41,9 +45,61 @@ function Formulaire() {
     ).then((data) => {
       setData(data);
       console.log(data);
+
+      getData(
+        "https://gentle-inlet-74830.herokuapp.com/doublon-enrollment",
+        "Nosybe",
+        "2021@Covax",
+        periode,
+        orgUnit.value,
+        "enrollments",
+        "enrollment".toUpperCase(),
+        "enrollment" + "Date"
+      ).then((data) => {
+        setDr(data.data.length);
+      });
+
+      getData(
+        "https://gentle-inlet-74830.herokuapp.com/NA-enrollment",
+        "Nosybe",
+        "2021@Covax",
+        periode,
+        orgUnit.value,
+        "enrollments",
+        "enrollment".toUpperCase(),
+        "enrollment" + "Date"
+      ).then((data) => {
+        setNr(data.data.length);
+      });
+
+      getData(
+        "https://gentle-inlet-74830.herokuapp.com/doublon-event",
+        "Nosybe",
+        "2021@Covax",
+        periode,
+        orgUnit.value,
+        "events",
+        "event".toUpperCase(),
+        "event" + "Date"
+      ).then((data) => {
+        setDv(data.data.length);
+      });
+
+      getData(
+        "https://gentle-inlet-74830.herokuapp.com/NA-event",
+        "Nosybe",
+        "2021@Covax",
+        periode,
+        orgUnit.value,
+        "events",
+        "event".toUpperCase(),
+        "event" + "Date"
+      ).then((data) => {
+        setNv(data.data.length);
+      });
+
       setLoading(false);
     });
-    console.log(url);
   };
 
   const handleDownload = () => {
@@ -62,7 +118,8 @@ function Formulaire() {
     <div className="container-fluid">
       <div className="row" style={{ height: "800px" }}>
         <div className="col-md-3  h-100">
-          <div className="row p-5 ">
+          <div className="row px-5 my-4">
+            <h4>Choisir ici</h4>
             <div className="form-group mb-3">
               <div className="form-label">Region</div>
               <Select
@@ -148,14 +205,32 @@ function Formulaire() {
             </button>
           </div>
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 px-4">
               {loading ? (
                 <LoadingSpinner />
               ) : (
                 data.headers.length !== 0 && (
-                  <h1>
-                    Resultats : <span>{data.data.length}</span>
-                  </h1>
+                  <table className="table table-dark table-striped">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Enrollement</th>
+                        <th>Evenement</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Doublons</td>
+                        <td>{dr}</td>
+                        <td>{dv}</td>
+                      </tr>
+                      <tr>
+                        <td>NA</td>
+                        <td>{nr}</td>
+                        <td>{nv}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 )
               )}
             </div>
