@@ -189,9 +189,6 @@ function Formulaire() {
               >
                 <option value="LAST_12_MONTHS">12 dernier mois</option>
                 <option value="THIS_YEAR;LAST_5_YEARS">2021-2022</option>
-                <option value="THIS_YEAR;LAST_5_YEARS">
-                  5 dernieres annees
-                </option>
                 <option value="THIS_YEAR">cette année</option>
                 <option value="LAST_5_YEARS">5 dernieres annees</option>
                 <option value="LAST_YEAR">Année derniere</option>
