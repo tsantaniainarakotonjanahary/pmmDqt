@@ -43,9 +43,6 @@ function Formulaire() {
       sortie.toUpperCase(),
       sortie + "Date"
     ).then((data) => {
-      setData(data);
-      console.log(data);
-
       getData(
         "https://gentle-inlet-74830.herokuapp.com/doublon-enrollment",
         "Nosybe",
@@ -98,6 +95,7 @@ function Formulaire() {
         setNv(data.data.length);
       });
 
+      setData(data);
       setLoading(false);
     });
   };
