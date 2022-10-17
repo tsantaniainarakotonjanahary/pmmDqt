@@ -31,7 +31,7 @@ function Formulaire() {
     console.log("clicked");
     setData({ headers: { length: 0 } });
     setLoading(true);
-    const url = "https://pmm-data-quality.vercel.app/" + erreur + "-" + sortie;
+    const url = "https://pmm-data-quality-teal.vercel.app/" + erreur + "-" + sortie;
     getData(
       url,
       "Nosybe",
@@ -43,7 +43,7 @@ function Formulaire() {
       sortie + "Date"
     ).then((data) => {
       getData(
-        "https://pmm-data-quality.vercel.app/doublon-enrollment",
+        "https://pmm-data-quality-teal.vercel.app/doublon-enrollment",
         "Nosybe",
         "2021@Covax",
         periode,
@@ -56,7 +56,7 @@ function Formulaire() {
       });
 
       getData(
-        "https://pmm-data-quality.vercel.app/NA-enrollment",
+        "https://pmm-data-quality-teal.vercel.app/NA-enrollment",
         "Nosybe",
         "2021@Covax",
         periode,
@@ -69,7 +69,7 @@ function Formulaire() {
       });
 
       getData(
-        "https://pmm-data-quality.vercel.app/doublon-event",
+        "https://pmm-data-quality-teal.vercel.app/doublon-event",
         "Nosybe",
         "2021@Covax",
         periode,
@@ -82,7 +82,7 @@ function Formulaire() {
       });
 
       getData(
-        "https://pmm-data-quality.vercel.app/NA-event",
+        "https://pmm-data-quality-teal.vercel.app/NA-event",
         "Nosybe",
         "2021@Covax",
         periode,
