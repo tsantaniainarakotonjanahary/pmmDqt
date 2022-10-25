@@ -7,17 +7,8 @@ import MySkeleton from "./MySkeleton";
 
 function Formulaire() {
   const [sortie, setSortie] = useState("enrollment");
-  const [region, setRegion] = useState({
-    value: "O5FeT4g4GOV",
-    label: "Tous",
-  });
-
-  const [orgUnit, setOrgUnit] = useState({
-    value: region.value,
-    label: "Tous",
-    link: region.value,
-  });
-
+  const [region, setRegion] = useState({ value: "O5FeT4g4GOV", label: "Tous", });
+  const [orgUnit, setOrgUnit] = useState({ value: region.value, label: "Tous", link: region.value,});
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
   const [data, setData] = useState({ headers: { length: 0 } });
@@ -32,68 +23,11 @@ function Formulaire() {
     setData({ headers: { length: 0 } });
     setLoading(true);
     const url = "https://pmm-data-quality-teal.vercel.app/" + erreur + "-" + sortie;
-    getData(
-      url,
-      "Nosybe",
-      "2021@Covax",
-      periode,
-      orgUnit.value,
-      sortie + "s",
-      sortie.toUpperCase(),
-      sortie + "Date"
-    ).then((data) => {
-      getData(
-        "https://pmm-data-quality-teal.vercel.app/doublon-enrollment",
-        "Nosybe",
-        "2021@Covax",
-        periode,
-        orgUnit.value,
-        "enrollments",
-        "enrollment".toUpperCase(),
-        "enrollment" + "Date"
-      ).then((data) => {
-        setDr(data.data.length);
-      });
-
-      getData(
-        "https://pmm-data-quality-teal.vercel.app/NA-enrollment",
-        "Nosybe",
-        "2021@Covax",
-        periode,
-        orgUnit.value,
-        "enrollments",
-        "enrollment".toUpperCase(),
-        "enrollment" + "Date"
-      ).then((data) => {
-        setNr(data.data.length);
-      });
-
-      getData(
-        "https://pmm-data-quality-teal.vercel.app/doublon-event",
-        "Nosybe",
-        "2021@Covax",
-        periode,
-        orgUnit.value,
-        "events",
-        "event".toUpperCase(),
-        "event" + "Date"
-      ).then((data) => {
-        setDv(data.data.length);
-      });
-
-      getData(
-        "https://pmm-data-quality-teal.vercel.app/NA-event",
-        "Nosybe",
-        "2021@Covax",
-        periode,
-        orgUnit.value,
-        "events",
-        "event".toUpperCase(),
-        "event" + "Date"
-      ).then((data) => {
-        setNv(data.data.length);
-      });
-
+    getData(url,"Nosybe","2021@Covax",periode,orgUnit.value,sortie + "s",sortie.toUpperCase(),sortie + "Date").then((data) => {
+      getData("https://pmm-data-quality-teal.vercel.app/doublon-enrollment","Nosybe","2021@Covax",periode,orgUnit.value,"enrollments","enrollment".toUpperCase(),"enrollment" + "Date" ).then((data) => { setDr(data.data.length); });
+      getData("https://pmm-data-quality-teal.vercel.app/NA-enrollment","Nosybe","2021@Covax",periode,orgUnit.value,"enrollments","enrollment".toUpperCase(),"enrollment" + "Date").then((data) => { setNr(data.data.length); });
+      getData("https://pmm-data-quality-teal.vercel.app/doublon-event","Nosybe","2021@Covax",periode,orgUnit.value,"events","event".toUpperCase(),"event" + "Date").then((data) => { setDv(data.data.length); });
+      getData("https://pmm-data-quality-teal.vercel.app/NA-event","Nosybe","2021@Covax",periode,orgUnit.value,"events","event".toUpperCase(),"event" + "Date").then((data) => { setNv(data.data.length); });
       setData(data);
       setLoading(false);
     });
@@ -119,42 +53,19 @@ function Formulaire() {
             <h4>Choisir ici</h4>
             <div className="form-group mb-3">
               <div className="form-label">Region</div>
-              <Select
-                options={optionsRegion}
-                value={region}
-                onChange={(selectedOption) => {
-                  setRegion(selectedOption);
-                  setOrgUnit({
-                    value: selectedOption.value,
-                    label: "Tous",
-                    link: selectedOption.value,
-                  });
-                }}
-              />
+              <Select options={optionsRegion} value={region} onChange={(selectedOption) => { setRegion(selectedOption); setOrgUnit({ value: selectedOption.value, label: "Tous", link: selectedOption.value, }); }} />
             </div>
 
             <div className="form-group mb-3">
               <div className="form-label">District</div>
-              <Select
-                options={filteredOptions}
-                value={orgUnit}
-                onChange={(selectedOption) => {
-                  setOrgUnit(selectedOption);
-                }}
-              />
+              <Select options={filteredOptions} value={orgUnit} onChange={(selectedOption) => { setOrgUnit(selectedOption); }} />
             </div>
 
             <div className="form-group mb-3">
               <div className="form-label" htmlFor="disabledSelect">
                 Type de sortie
               </div>
-              <select
-                className="form-select"
-                value={sortie}
-                onChange={(e) => {
-                  setSortie(e.target.value);
-                }}
-              >
+              <select className="form-select" value={sortie} onChange={(e) => {  setSortie(e.target.value); }} >
                 <option value="enrollment">Enrollement</option>
                 <option value="event">Evenement</option>
               </select>
@@ -760,6 +671,7 @@ const options = [
   {
     value: "xgvRu8zZAZK",
     label: "Marolambo",
+    link : "wR0PL2iap0s"
   },
   {
     value: "ffiVmdBUwzI",
