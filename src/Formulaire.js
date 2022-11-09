@@ -55,7 +55,7 @@ function Formulaire()
             <div className="form-group mb-3">
               <div className="form-label">Region</div>
               <Select options={optionsRegion} value={region} onChange={(selectedOption) => { setRegion(selectedOption);
-              // setOrgUnit({ value: selectedOption.value, label: "Tous", link: selectedOption.value, }); 
+              setOrgUnit({ value: selectedOption.value, label: "Tous", link: selectedOption.value, }); 
             }} />
             </div>
 
