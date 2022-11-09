@@ -5,9 +5,10 @@ import LoadingSpinner from "./LoadingSpinner";
 import Select from "react-select";
 import MySkeleton from "./MySkeleton";
 
-function Formulaire() {
+function Formulaire() 
+{
   const [sortie, setSortie] = useState("enrollment");
-  const [region, setRegion] = useState({ value: "O5FeT4g4GOV", label: "Tous", });
+  const [region, setRegion] = useState({ value: "MskGiUGbWJ8", label: "Alaotra Mangoro" , });
   const [orgUnit, setOrgUnit] = useState({ value: region.value, label: "Tous", link: region.value,});
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
