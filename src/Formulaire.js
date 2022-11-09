@@ -9,7 +9,7 @@ function Formulaire()
 {
   const [sortie, setSortie] = useState("enrollment");
   const [region, setRegion] = useState({ value: "MskGiUGbWJ8", label: "Alaotra Mangoro" , });
-  const [orgUnit, setOrgUnit] = useState({ value: region.value, label: "Tous", link: region.value,});
+  const [orgUnit, setOrgUnit] = useState({ value: "lsCrRfgm2hS",label: "Ambatondrazaka",link: "MskGiUGbWJ8",});
   const [erreur, setErreur] = useState("doublon");
   const [periode, setPeriode] = useState("LAST_12_MONTHS");
   const [data, setData] = useState({ headers: { length: 0 } });
@@ -54,7 +54,9 @@ function Formulaire()
             <h4>Choisir ici</h4>
             <div className="form-group mb-3">
               <div className="form-label">Region</div>
-              <Select options={optionsRegion} value={region} onChange={(selectedOption) => { setRegion(selectedOption); setOrgUnit({ value: selectedOption.value, label: "Tous", link: selectedOption.value, }); }} />
+              <Select options={optionsRegion} value={region} onChange={(selectedOption) => { setRegion(selectedOption);
+              // setOrgUnit({ value: selectedOption.value, label: "Tous", link: selectedOption.value, }); 
+            }} />
             </div>
 
             <div className="form-group mb-3">
